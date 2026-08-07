@@ -1,5 +1,5 @@
 import {useState, createContext, useEffect } from "react";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import auth from "../FirebaseConfig";
 
 export const AuthContext = createContext(null);
@@ -11,6 +11,7 @@ const [registerFormData, setRegisterFormData] = useState({
     email: '',
     password: '',
   });
+
 const [loginFormData, setLoginFormData] = useState({
     email: '',
     password: '',
@@ -28,8 +29,10 @@ const [loginFormData, setLoginFormData] = useState({
   function LoginWithFirebase()
   {
     const { email, password } = loginFormData;
-    console.log('email,password:',email,password);
     return signInWithEmailAndPassword(auth,email,password);
+  }
+  function handleLogout(){
+    return signOut(auth);
   }
 
   useEffect(()=>{
@@ -42,13 +45,12 @@ const [loginFormData, setLoginFormData] = useState({
     };
   },[]);
 
-  console.log('user:',user);
 
   return (
     <AuthContext.Provider value={{ 
-     registerFormData, setRegisterFormData,
-     registerWithFirebase, user ,
-     loginFormData, setLoginFormData,LoginWithFirebase
+      registerFormData, setRegisterFormData,
+      registerWithFirebase, user, loginFormData,
+      setLoginFormData, LoginWithFirebase, handleLogout
      }}>
       {children}
     </AuthContext.Provider>

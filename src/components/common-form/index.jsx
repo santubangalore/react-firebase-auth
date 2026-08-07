@@ -61,7 +61,7 @@ function CommonForm({formControls, buttonText, formData, onSubmit, setFormData})
       {
         formControls.map((control, index) => 
           {
-             return renderFormElement(control,formData);
+                return renderFormElement(control,formData);
           })
       }
        <div className='px-6 py-5 items-center justify-content text-center'>

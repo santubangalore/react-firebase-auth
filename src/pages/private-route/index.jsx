@@ -6,7 +6,7 @@ import { Navigate } from 'react-router-dom';
 
 function AuthPage({children}) {
   const {user} = useContext(AuthContext);
-    console.log('user in Auth:',user);
+    
   if (user) return children;
 
   

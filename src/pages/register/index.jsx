@@ -30,14 +30,17 @@ function RegisterPage() {
           updateProfile(user,{
             displayName:registerFormData.name,
 
+          }).then((res)=>{
+              console.log(user)
+              if(user.displayName)
+                navigate("/profile")
           });
-          navigate("/profile");
         }
       }).catch((error)=>{
          setUserCreated(false);
          setShowDiv(true);
          setErrorMsg(error.error);
-         console.error(error);
+         //console.error(error);
       }).finally (
         setRegisterFormData({
           name:'',
@@ -47,7 +50,7 @@ function RegisterPage() {
       ); 
   }
   
-if(user)  navigate("/profile");
+
   return (
     <div className='w-full max-w-[75%] mx-auto justify-content 
             items-center text-center rounded-lg shadow-md flex '>

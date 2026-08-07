@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import CommonForm from "../../components/common-form";
 import {loginFormControls} from '../../config';
 import { AuthContext } from "../../context";
@@ -8,14 +8,18 @@ function LoginPage() {
 
   const {loginFormData,setLoginFormData,LoginWithFirebase }= useContext(AuthContext);
   const navigate= useNavigate();
+  
+  useEffect(()=>{
+    setLoginFormData({
+      email:'',
+      password:''
+    })
+  },[]);
 
-  function handleLogin(event){
+  async function handleLogin(event){
     event.preventDefault();
-    LoginWithFirebase().then((result)=>{
-      console.log(result);
+    const result=LoginWithFirebase().then((result)=>{
       if(result) navigate("/profile");
-    }).error((err)=>{
-      console.log(err);
     })
   }
 
